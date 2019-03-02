@@ -1,0 +1,1 @@
+To run the installer, you need a Qt Account. You can use your Qt Account credentials to sign-in to all Qt services, including the forums and wiki. If you do not already have a Qt Account, you can create one during the installation process.
