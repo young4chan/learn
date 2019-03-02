@@ -7,7 +7,7 @@ use Socket;
 # use port 7890 as default
 my $port = shift || 7890;
 my $proto = getprotobyname('tcp');
-my $server = "localhost";    # Host IP running the server
+my $server = "192.168.1.2";    # Host IP running the server
 
 # create a socket, make it reusable
 socket(SOCKET, PF_INET, SOCK_STREAM, $proto) or die "Can't open socket $!\n";
@@ -18,12 +18,21 @@ bind(SOCKET, pack_sockaddr_in($port, inet_aton($server))) or die "Can't bind to 
 
 listen(SOCKET, 5) or die "listen: $!\n";
 
+# open(DATA, "<import.txt") or die "Can't open data";
+# my @lines = <DATA>;
+
 # accepting a connection
 my $client_addr;
 while ($client_addr = accept(NEW_SOCKET, SOCKET)) {
+	my @lines;
 	# send them a message, close connection
 	my $name = gethostbyaddr($client_addr, AF_INET);
-	print NEW_SOCKET "Smile from the server";
+	#	print NEW_SOCKET "@lines\n";
 	print "Connection received from $name\n";
+	while(@lines = <NEW_SOCKET>)
+	{
+		print "@lines\n";
+	}
+
 	close NEW_SOCKET;
 }
