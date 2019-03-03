@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+
+open(DATA, '>'.$ARGV[0].'.py');
+
+print DATA "#!/usr/bin/env python3\n";
+print DATA "# -*- coding: utf-8 -*-\n\n\n";
+
+close(DATA);
