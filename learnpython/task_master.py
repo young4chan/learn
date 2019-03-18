@@ -31,7 +31,7 @@ for i in range(10):
 # get result from queue
 print('Try get results...')
 for i in range(10):
-    r = result.get(timeout=10)
+    r = result.get(timeout=100)
     print('Result: %s' % r)
 # close:
 print('master exit.')
