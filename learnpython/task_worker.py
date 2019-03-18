@@ -13,7 +13,7 @@ QueueManager.register('get_task_queue')
 QueueManager.register('get_result_queue')
 
 # connect server
-server_addr = '192.168.1.2'
+server_addr = '192.168.1.7'
 print('Connect to server %s...' % server_addr)
 # set port and checksum
 m = QueueManager(address=(server_addr, 5000), authkey=b'abc')
