@@ -23,6 +23,7 @@ msg['To'] = _format_addr('admin<%s>' % to_addr)
 msg['Subject'] = Header('greetings from smtp', 'utf-8').encode()
 
 server = smtplib.SMTP(smtp_server, 25)
+
 server.set_debuglevel(1)
 server.login(from_addr, password)
 server.sendmail(from_addr, [to_addr], msg.as_string())
