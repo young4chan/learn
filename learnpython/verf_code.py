@@ -20,9 +20,9 @@ def rndColor2():
 # 240 x 60:
 width = 60 * 4
 height = 60
-Image = Image.new('RGB', (width, height), (255, 255, 255))
+image = Image.new('RGB', (width, height), (255, 255, 255))
 # new Font object
-font = ImageFont.truetype('Arial.tiff', 36)
+font = ImageFont.truetype('C:\WINDOWS\FONTS\ARIAL.TTF', 36)
 # draw object
 draw = ImageDraw.Draw(image)
 # fill pixel
@@ -34,4 +34,4 @@ for t in range(4):
     draw.text((60 * t + 10, 10), rndChar(), font=font, fill=rndColor2())
 # blur
 image = image.filter(ImageFilter.BLUR)
-iamge.save('code.jpg', 'jpeg')
+image.save('code.jpg', 'jpeg')
