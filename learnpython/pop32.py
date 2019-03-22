@@ -7,7 +7,7 @@ from email.utils import parseaddr
 
 import poplib
 
-msg = Parser().parsestr(msg_content)
+# msg = Parser().parsestr(msg_content)
 
 def print_info(msg, indent=0):
     if indent == 0:
@@ -20,7 +20,7 @@ def print_info(msg, indent=0):
                     hdr, addr = parseaddr(value)
                     name = decode_str(hdr)
                     value = u'%s <%s>' % (name, addr)
-            print('%s: %s' % ('  ' * indent, header, value))
+            print('%s%s: %s' % ('  ' * indent, header, value))
         if msg.is_multipart():
             parts = msg.get_payload()
             for n, part in enumerate(parts):
@@ -36,7 +36,7 @@ def print_info(msg, indent=0):
                     content = content.decode(charset)
                 print('%sText: %s' % ('  ' * indent, content + '...'))
             else:
-                print('%sAttachment: %s' % ('  ' * indent, content_type)
+                print('%sAttachment: %s' % ('  ' * indent, content_type))
 
 def decode_str(s):
     value, charset = decode_header(s)[0]
@@ -51,5 +51,35 @@ def guess_charset(msg):
         pos = content_type.find('charset=')
         if pos >= 0:
             charset = content_type[pos + 8:].strip()
-    return charset			
-		
+    return charset
+
+email = input('Email: ')
+password = input('Password: ')
+pop3_server = input('POP3 server: ')
+
+server = poplib.POP3(pop3_server)
+
+server.set_debuglevel(1)
+
+print(server.getwelcome().decode('utf-8'))
+
+server.user(email)
+server.pass_(password)
+
+print('Messages: %s. Size: %s' % server.stat())
+
+resp, mails, octets = server.list()
+
+print(mails)
+
+
+index = len(mails)
+resp, lines, octets = server.retr(index)
+
+msg_content = b'\r\n'.join(lines).decode('utf-8')
+
+msg = Parser().parsestr(msg_content)
+
+print_info(msg, 0)
+
+server.quit()
